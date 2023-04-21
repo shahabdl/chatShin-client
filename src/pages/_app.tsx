@@ -1,3 +1,4 @@
+import '../styles/global.css'
 import type { AppProps } from "next/app";
 import { ApolloProvider } from "@apollo/client";
 import { wrapper } from "shb/store/store";

@@ -20,12 +20,16 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setAuthState(state, action) {      
+    setAuthState(state, action) {
       state.id = action.payload.id;
       state.email = action.payload.email;
       state.token = action.payload.token;
-      state.username = action.payload.username;      
+      state.username = action.payload.username;
       window.localStorage.setItem("_access_token", action.payload.token);
+    },
+    setAuthStateUsername(state, action) {
+      state = { ...state, username: action.payload };
+      return { ...state };
     },
   },
   extraReducers: {
@@ -38,6 +42,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setAuthState } = authSlice.actions;
+export const { setAuthState, setAuthStateUsername } = authSlice.actions;
 export const selectAuthState = (state: AppState) => state.auth;
 export default authSlice;
