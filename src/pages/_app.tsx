@@ -1,5 +1,14 @@
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
+import { ApolloProvider } from "@apollo/client";
+import { wrapper } from "shb/store/store";
+import apolloClient from "../components/apollo-client";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const App = ({ Component, pageProps }: AppProps) => {
+  return (
+    <ApolloProvider client={apolloClient}>
+      <Component {...pageProps} />
+    </ApolloProvider>
+  );
+};
+
+export default wrapper.withRedux(App);
