@@ -93,7 +93,7 @@ const Signup = () => {
       >
         {loading ? <Loading /> : "Sign up"}
       </button>
-      <div className="text-sm font-light mt-3">Already have an Account? <Link href="/" className="text-blue-400 hover:text-blue-500 transition-colors">Sign In</Link></div>
+      <div className="text-sm font-light mt-3">Already have an Account? <Link href="/" className="text-blue-500 hover:text-blue-400 transition-colors">Sign In</Link></div>
     </div>
   );
 };

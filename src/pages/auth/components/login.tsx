@@ -68,10 +68,10 @@ const Login = () => {
 
   return (
     <div className="bg-zinc-700 p-4 rounded-lg ">
-      <h1 className="mb-3 border-b-[1px] border-b-zinc-500 pb-2">Login</h1>
+      <h1 className="mb-4 border-b-[1px] border-b-zinc-500 pb-3 font-light">Login</h1>
       <div>
         <input
-          className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors"
+          className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors font-light text-sm w-full"
           name="email"
           type="email"
           placeholder="Email"
@@ -82,7 +82,7 @@ const Login = () => {
       </div>
       <div className="mt-3">
         <input
-          className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors"
+          className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors font-light text-sm w-full"
           name="password"
           type="password"
           placeholder="Password"
