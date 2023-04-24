@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import Link from "next/link";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import apolloClient from "shb/components/apollo-client";
 import Loading from "shb/components/ui/loading";
@@ -24,6 +24,7 @@ const LOGIN = gql`
 const Login = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [disableSubmitButton, setDisableSubmitButton] = useState(true);
   const dispatch = useDispatch();
 
   const submitHandler = async () => {
@@ -49,7 +50,7 @@ const Login = () => {
     }
   };
 
-  const changeHandler = (name: string, value: string) => {
+  const changeHandler = (name: "email" | "password", value: string) => {
     if (name === "email") {
       setLoginData({ email: value, password: loginData.password });
     } else {
@@ -57,8 +58,16 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    if (loginData.email === "" || loginData.password === "") {
+      setDisableSubmitButton(true);
+    } else {
+      setDisableSubmitButton(false);
+    }
+  }, [loginData]);
+
   return (
-    <div className="bg-zinc-800 p-4 rounded-lg ">
+    <div className="bg-zinc-700 p-4 rounded-lg ">
       <h1 className="mb-3 border-b-[1px] border-b-zinc-500 pb-2">Login</h1>
       <div>
         <input
@@ -80,9 +89,23 @@ const Login = () => {
           }
         />
       </div>
-      <button className="mt-3 bg-zinc-900 px-4 py-2 rounded-lg w-full hover:bg-zinc-950 transition-colors" onClick={submitHandler}>Login</button>
-      <div className="text-sm font-light mt-3">Dont have an account? <Link href="./?t=signup" className="text-blue-500 hover:text-blue-400 transition-colors">Signup</Link></div>
-      {loading ? <Loading /> : ""}
+
+      <button
+        className="mt-3 bg-zinc-900 px-4 py-2 rounded-lg w-full hover:bg-zinc-950 transition-colors grid items-center justify-center h-[45px] disabled:bg-zinc-600 disabled:text-zinc-700"
+        onClick={submitHandler}
+        disabled={loading || disableSubmitButton}
+      >
+        {loading ? <Loading /> : "Login"}
+      </button>
+      <div className="text-sm font-light mt-3">
+        Dont have an account?{" "}
+        <Link
+          href="./?t=signup"
+          className="text-blue-500 hover:text-blue-400 transition-colors"
+        >
+          Signup
+        </Link>
+      </div>
     </div>
   );
 };
