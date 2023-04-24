@@ -31,6 +31,10 @@ const authSlice = createSlice({
       state = { ...state, username: action.payload };
       return { ...state };
     },
+    logoutUser(state) {
+      window.localStorage.removeItem("_access_token");      
+      return { ...initialState };
+    },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
@@ -42,6 +46,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { setAuthState, setAuthStateUsername } = authSlice.actions;
+export const { setAuthState, setAuthStateUsername, logoutUser } =
+  authSlice.actions;
 export const selectAuthState = (state: AppState) => state.auth;
 export default authSlice;

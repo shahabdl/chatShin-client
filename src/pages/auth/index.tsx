@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Login from "./components/login";
 import { selectAuthState } from "shb/store/authSlice";
 import { useEffect, useState } from "react";
@@ -10,10 +10,7 @@ const Auth = () => {
   const authState = useSelector(selectAuthState);
   const router = useRouter();
   const { t } = router.query;
-  useEffect(() => {
-    console.log(t);
-  }, [t]);
-
+  
   if (!authState.id) {
     if(t === "signup"){
       return(
