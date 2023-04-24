@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
-import { useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import apolloClient from "shb/components/apollo-client";
 import Loading from "shb/components/ui/loading";
@@ -21,6 +22,7 @@ const SIGN_UP = gql`
 const Signup = () => {
   const [userData, setUserData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [disableSubmitButton, setDisableSubmitButton] = useState(true);
   const dispatch = useDispatch();
 
   const inputChangeHandler = (value: string, type: "email" | "password") => {
@@ -36,7 +38,7 @@ const Signup = () => {
       const { data } = await apolloClient.mutate({
         mutation: SIGN_UP,
         variables: { email: userData.email, password: userData.password },
-      });
+      });      
       if (data.signUp.success) {
         dispatch(
           setAuthState({
@@ -50,12 +52,21 @@ const Signup = () => {
       setLoading(false);
     }
   };
+
+  useEffect(()=>{
+    if(userData.email ==="" || userData.password === ""){
+        setDisableSubmitButton(true);
+    }else{
+        setDisableSubmitButton(false);
+    }
+  },[userData])
+
   return (
-    <div className="bg-zinc-800 p-4 rounded-lg">
-      <h1 className="mb-3 border-b-[1px] border-b-zinc-500 pb-2">Sign up</h1>
+    <div className="bg-zinc-700 p-4 rounded-lg">
+      <h1 className="mb-4 border-b-[1px] border-b-zinc-500 pb-3 font-light">Sign up</h1>
       <div>
         <input
-          className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors"
+          className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors text-sm font-light w-full"
           name="email"
           type="email"
           placeholder="Email"
@@ -66,7 +77,7 @@ const Signup = () => {
       </div>
       <div className="mt-3">
         <input
-          className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors"
+          className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors text-sm font-light w-full"
           name="password"
           type="password"
           placeholder="Password"
@@ -76,18 +87,13 @@ const Signup = () => {
         />
       </div>
       <button
-        className="mt-3 bg-zinc-900 px-4 py-2 rounded-lg w-full hover:bg-zinc-950 transition-colors grid grid-cols-5 h-[45px]"
+        className="mt-3 bg-zinc-900 px-4 py-2 rounded-lg w-full hover:bg-zinc-950 transition-colors grid h-[45px] font-light text-sm justify-center items-center disabled:bg-zinc-600 disabled:text-zinc-700"
         onClick={submitHandler}
+        disabled={loading || disableSubmitButton}
       >
-        {loading ? (
-          <div className="col-span-1">
-            <Loading />
-          </div>
-        ) : (
-          ""
-        )}
-        <span className="col-span-3 col-start-2">Sign up</span>
+        {loading ? <Loading /> : "Sign up"}
       </button>
+      <div className="text-sm font-light mt-3">Already have an Account? <Link href="/" className="text-blue-400 hover:text-blue-500 transition-colors">Sign In</Link></div>
     </div>
   );
 };
