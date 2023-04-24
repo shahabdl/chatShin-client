@@ -3,18 +3,23 @@ import Login from "./components/login";
 import { selectAuthState } from "shb/store/authSlice";
 import { useEffect, useState } from "react";
 import SetUsername from "./components/set-details";
+import { useRouter } from "next/router";
+import Signup from "./components/signup";
 
 const Auth = () => {
   const authState = useSelector(selectAuthState);
-  const [needUsername, setNeedUsername] = useState(false);
+  const router = useRouter();
+  const { t } = router.query;
   useEffect(() => {
-    if (authState.username === "") {
-      setNeedUsername(true);
-    } else {
-      setNeedUsername(false);
-    }
-  }, [authState]);
+    console.log(t);
+  }, [t]);
+
   if (!authState.id) {
+    if(t === "signup"){
+      return(
+        <div><Signup /></div>
+      )
+    }
     return (
       <div>
         <Login />

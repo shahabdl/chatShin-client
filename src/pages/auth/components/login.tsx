@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import Link from "next/link";
 import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import apolloClient from "shb/components/apollo-client";
@@ -57,9 +58,11 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="bg-zinc-800 p-4 rounded-lg ">
+      <h1 className="mb-3 border-b-[1px] border-b-zinc-500 pb-2">Login</h1>
       <div>
         <input
+          className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors"
           name="email"
           type="email"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -67,8 +70,9 @@ const Login = () => {
           }
         />
       </div>
-      <div>
+      <div className="mt-3">
         <input
+          className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors"
           name="password"
           type="password"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -76,7 +80,8 @@ const Login = () => {
           }
         />
       </div>
-      <button onClick={submitHandler}>Login</button>
+      <button className="mt-3 bg-zinc-900 px-4 py-2 rounded-lg w-full hover:bg-zinc-950 transition-colors" onClick={submitHandler}>Login</button>
+      <div className="text-sm font-light mt-3">Dont have an account? <Link href="./?t=signup" className="text-blue-500 hover:text-blue-400 transition-colors">Signup</Link></div>
       {loading ? <Loading /> : ""}
     </div>
   );

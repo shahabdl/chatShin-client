@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import Auth from "./auth/auth";
+import Auth from "./auth";
 import { selectAuthState, setAuthState } from "shb/store/authSlice";
 import { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
