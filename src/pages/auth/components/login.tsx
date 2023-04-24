@@ -74,6 +74,7 @@ const Login = () => {
           className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors"
           name="email"
           type="email"
+          placeholder="Email"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             changeHandler("email", e.currentTarget.value)
           }
@@ -84,6 +85,7 @@ const Login = () => {
           className="text-white border-[1px] bg-transparent h-[35px] px-2 rounded-lg border-zinc-500 focus-visible:outline-none focus-visible:bg-zinc-900 transition-colors"
           name="password"
           type="password"
+          placeholder="Password"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             changeHandler("password", e.currentTarget.value)
           }
