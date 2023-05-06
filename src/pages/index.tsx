@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import apolloClient from "shb/components/apollo-client";
 import Loading from "shb/components/ui/loading";
+import Chat from "./chat";
 
 const Home = () => {
   const authState = useSelector(selectAuthState);
@@ -64,25 +65,13 @@ const Home = () => {
     }
   }, [authState]);
 
-  const logoutHandler = () =>{
-    dispatch(logoutUser());    
-  }  
-
   return (
     <div className="grid items-center justify-center h-[100vh] content-center">
       {loggedIn ? (
         <>
           {authState.username !== "" && authState.username !== undefined ? (
-            <div className="flex gap-4">
-              <div>
-                logged in as <span>{authState.username}</span>
-              </div>
-              <button
-                onClick={logoutHandler}
-                className="bg-zinc-700 py-2 px-4 w-full rounded-lg"
-              >
-                Logout
-              </button>
+            <div className="w-[100vw] h-[100vh]">
+              <Chat />
             </div>
           ) : (
             <div>need username</div>
